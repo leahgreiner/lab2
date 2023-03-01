@@ -8,23 +8,29 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+Question set 1:
+1. What is the overall number of chocolate bars rated? There are 1,852 chocolate bars being rated in this data set. 
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+nrow(choco)
 ```
 
-## Including Plots
+2. How does the number of ratings depend on the year? Draw a bar chart of the number of reports. 
+The most ratings occured in 2015. The data is left skewwed, with most of the rating occuring between 2016 and 2018.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+library(ggplot2)
+library(tidyverse)
+ggplot(choco, aes(x = Review.Date)) + geom_bar(aes(weight= Review.Date)) 
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Question set 2:
+For each of the questions below provide at least one graphic as a basis for your answer.
+1. How are ratings distributed? Draw a histogram of ratings and describe it. Don’t forget to mention outliers, if there are any.
+2, Do ratings depend on the cocoa percentage of a chocolate bar?
+3. How do ratings compare across different company locations? Focus on the three locations with the most ratings:
+top3 <- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+Upload your answers to the repository. Discuss and refine answers as a team.
