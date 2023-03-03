@@ -1,0 +1,50 @@
+---
+title: "Maheeka_Lab2"
+output: html_document
+date: "2023-03-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+
+#Question set 2: part 1
+
+```{r }
+library(ggplot2)
+ggplot(data = choco, aes(x = Rating)) + geom_histogram()
+```
+#Description: The histogram seems to be slighlty left skewed with a few outliers on either side. It looks like most chocolates are rated in the range of 2.5 to 4. Very few were rated 1 or 5.
+
+#Question set 2: part 2
+
+```{r }
+ggplot(data = choco, aes(x = Rating, y = Cocoa.Pct)) + geom_point()
+```
+#Description: There is no clear trend or relation between ratings and Cocoa Percentage.
+
+#Question set 2: part 3
+```{r }
+top3 <- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+
+ggplot(data = top3, aes(x = Rating, y = Cocoa.Pct)) + facet_wrap(~Company.Location, scale = "free_y") + geom_point()
+```
+```{r }
+ggplot(data = top3, aes(x = Rating)) + facet_wrap(~Company.Location, scale = "free_y") + geom_histogram()
+```
+#description: USA has the most number of highly rated chocolate followed by France and Canada.
+
+#My own Question: What is the trend of rating in Germany based on Broad Bean origin? What is the origin of the bean that has highest ratings in Germany?
+
+```{r }
+Germany <- dplyr::filter(choco, Company.Location %in% c("Germany"))
+
+ggplot(data = Germany, aes(x = Rating)) + facet_wrap(~Broad.Bean.Origin, scale = "free_y") + geom_histogram()
+```
+#Hence Beans originating from Venezuala have highest ratings in Germany followed by Madagascar.
