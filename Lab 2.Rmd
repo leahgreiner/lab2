@@ -74,5 +74,16 @@ Maheeka Question: What is the trend of rating in Germany based on Broad Bean ori
 Germany <- dplyr::filter(choco, Company.Location %in% c("Germany"))
 ggplot(data = Germany, aes(x = Rating)) + facet_wrap(~Broad.Bean.Origin, scale = "free_y") + geom_histogram()
 ```
+#Tess:
+Does bean origin affect rating?
+```{r}
+ggplot(choco, aes(x = Broad.Bean.Origin, y = Rating)) + geom_point(aes(color = Rating)) +coord_flip() + facet_wrap(~Broad.Bean.Origin)
+```
+There are multiple origin countries with many beans originating from there. It is easy to 
+see that when there are multiple beans originating from one country, there is a gradient from rating 1 to rating 5. When there is only one dot, we see there wasn't many beans originating from there. There is not enough data, and it would be interesting to look into this further- looking at origin countries with >5 originating beans, then making a final decision.  
 
+
+
+##Workflow
+We met after class one day and decided Leah would start the repository and share it with the rest of the group. We decided to all do the homework on our own, then meet up to discuss if we got the same answers, or if we needed to have discussions about how we did things differently. We ended up having similar responses to the questions, with some minor changes on a couple of questions. These questions involved the same response, just a slightly varying way of doing it. This was great, because we were able to learn from each other and see new ways of doing things! Maheeka and Tess pushed their RMarkdown files to the lab 2 repository so Leah could submit the homework and then we can all have the final draft. 
 
