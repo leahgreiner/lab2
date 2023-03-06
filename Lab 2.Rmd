@@ -20,7 +20,8 @@ nrow(choco)
 ```
 
 2. How does the number of ratings depend on the year? Draw a bar chart of the number of reports. 
-The most ratings occured in 2015. The data is left skewwed, with most of the rating occuring between 2016 and 2018.
+
+#The most ratings occured in 2015. The data is left skewwed, with most of the rating occuring between 2016 and 2018.
 
 ```{r}
 library(ggplot2)
@@ -30,7 +31,48 @@ ggplot(choco, aes(x = Review.Date)) + geom_bar(aes(weight= Review.Date))
 Question set 2:
 For each of the questions below provide at least one graphic as a basis for your answer.
 1. How are ratings distributed? Draw a histogram of ratings and describe it. Don’t forget to mention outliers, if there are any.
+##Description: The histogram seems to be slighlty left skewed with a few outliers on either side. It looks like most chocolates are rated in the range of 2.5 to 4. Very few were rated 1 or 5.
+
+```{r}
+ggplot(choco, aes(x = Rating)) + geom_histogram()
+```
+
 2, Do ratings depend on the cocoa percentage of a chocolate bar?
+#Description: There is no clear trend or relation between ratings and Cocoa Percentage.
+
+```{r}
+ggplot(data = choco, aes(x = Rating, y=Cocoa.Pct)) + geom_point()
+```
+
+
 3. How do ratings compare across different company locations? Focus on the three locations with the most ratings:
 top3 <- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
 Upload your answers to the repository. Discuss and refine answers as a team.
+
+#description: USA has the most number of highly rated chocolate followed by France and Canada.
+
+
+```{r}
+top3 <- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+
+```
+
+```{r}
+ggplot(top3, aes(x = Rating)) + geom_histogram() + facet_wrap(.~ Company.Location)
+```
+Leah Question: How does Location effect rating? 
+
+#Answer: There doesn't seem to be a relationship between Company location and rating. Italy does have an outlier of a rating of 5. 
+
+```{r}
+ggplot(data = choco, aes(x = Company.Location, y = Rating)) + geom_point() + coord_flip()
+```
+Maheeka Question: What is the trend of rating in Germany based on Broad Bean origin? What is the origin of the bean that has highest ratings in Germany?
+#Hence Beans originating from Venezuala have highest ratings in Germany followed by Madagascar.
+
+```{r }
+Germany <- dplyr::filter(choco, Company.Location %in% c("Germany"))
+ggplot(data = Germany, aes(x = Rating)) + facet_wrap(~Broad.Bean.Origin, scale = "free_y") + geom_histogram()
+```
+
+
